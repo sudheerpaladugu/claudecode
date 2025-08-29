@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Calico - Live Stream</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>
+            Radio 
+            <div class="header-logo">🐱</div>
+            Calico
+        </h1>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Album Art Section -->
+        <div class="album-section">
+            <div class="album-art-container">
+                <img src="/api/album-art" alt="Album Art" class="album-art" id="albumArt" onerror="console.error('Album art failed to load:', this.src);">
+                <div class="artist-banner" id="artistBanner">LOADING...</div>
+            </div>
+        </div>
+
+        <!-- Track Info Section -->
+        <div class="track-info-section">
+            <div class="artist-name" id="currentArtist">Loading...</div>
+            <div class="artist-name second" id="currentArtistLast" style="display: none;"></div>
+            
+            <div class="song-title" id="currentTrack">Please wait...</div>
+            
+            <div class="album-info" id="albumInfo">Fetching track info...</div>
+            
+            <!-- Debug button -->
+            <button onclick="fetchCurrentTrack()" style="margin: 10px 0; padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 4px;">Update Track Info</button>
+            
+            <div class="quality-info">
+                <div>Source quality: 16-bit 44.1kHz</div>
+                <div>Stream quality: 48kHz FLAC / HLS Lossless</div>
+            </div>
+            
+            <div class="rating-section" id="ratingSection">
+                <div class="rating-text">Rate this track:</div>
+                <div class="rating-buttons">
+                    <button class="rating-btn" id="thumbsUpBtn" onclick="rateSong(1)" title="Thumbs Up">
+                        👍 <span id="thumbsUpCount">0</span>
+                    </button>
+                    <button class="rating-btn" id="thumbsDownBtn" onclick="rateSong(-1)" title="Thumbs Down">
+                        👎 <span id="thumbsDownCount">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="player-controls">
+                <button class="play-btn" id="playBtn">▶</button>
+                <div class="time-display" id="timeDisplay">0:35 / Live</div>
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Previous Tracks Section -->
+    <div class="previous-tracks">
+        <div class="track-list">
+            <h3>Previous tracks:</h3>
+            <div id="recentTracks">
+                <!-- Recent tracks will be populated here -->
+            </div>
+        </div>
+    </div>
+    
+    <audio id="audioPlayer" preload="none"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
